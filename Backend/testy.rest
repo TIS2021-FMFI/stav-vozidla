@@ -1,0 +1,29 @@
+
+
+POST http://localhost:5000/api/login   
+Content-Type: application/json
+
+{
+    "email":"admin@admin.sk",
+    "password":"admin123"
+}
+###
+POST http://localhost:5000/api/users   
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkVXNlcnMiOjYsImlkR2VmY28iOjAsImVtYWlsIjoiYWRtaW5AYWRtaW4uc2siLCJuYW1lIjoiQWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRaY0F5WWpVMlVtT0ZMbWNYNTZ6WUcuTWQ5WU5DZE9NWlhpQXlvSWkuOGpCOFlmQURjdm1NQyIsImFkbWluIjp0cnVlLCJyZXNldFRva2VuIjpudWxsfSwiaWF0IjoxNjM1ODAxMjE4fQ.GdMZ6JehY_-5GOTcr9mqCSNVI4Kz4rjEIhXTDmRIWSQ",
+    "email":"testUser1@testUser.sk",
+    "password":"User123",
+    "idGefco": 25,
+    "admin": false,
+    "name": "Jozo"
+}
+###
+GET  http://localhost:5000/api/users    
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkVXNlcnMiOjYsImlkR2VmY28iOjAsImVtYWlsIjoiYWRtaW5AYWRtaW4uc2siLCJuYW1lIjoiQWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCRaY0F5WWpVMlVtT0ZMbWNYNTZ6WUcuTWQ5WU5DZE9NWlhpQXlvSWkuOGpCOFlmQURjdm1NQyIsImFkbWluIjp0cnVlLCJyZXNldFRva2VuIjpudWxsfSwiaWF0IjoxNjM1ODAxMjE4fQ.GdMZ6JehY_-5GOTcr9mqCSNVI4Kz4rjEIhXTDmRIWSQ"
+}
+
