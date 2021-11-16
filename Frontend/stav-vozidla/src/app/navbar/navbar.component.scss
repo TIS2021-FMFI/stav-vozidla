@@ -1,0 +1,54 @@
+@import "src/palette";
+
+.navbar {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 80px;
+  height: 100%;
+
+  .logo{
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    padding-top: 16px;
+    width: 100%;
+    background-color: $color-primary-dark;
+    img{
+      height: 64px;
+    }
+  }
+
+  .actions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    height: 150px;
+    padding-bottom: 16px;
+
+    .divider{
+      height: 1px;
+      margin-top: 16px;
+      margin-bottom: 16px;
+      width: 35px;
+      background-color: white;
+    }
+  }
+}
+
+.logo-container {
+  background-color: $color-primary;
+}
+
+.mat-white {
+  color: #fff;
+}
