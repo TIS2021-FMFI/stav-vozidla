@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET, JWT_EXPIRE } = process.env;
 
 function authUser(req, res, next) {
   console.log(req.user);
@@ -20,7 +21,7 @@ function authAdmin(req, res, next) {
 function authenticateToken(req, res, next) {
   const token = req.body.token; //token z tele http requestu
   if (token == null) return res.sendStatus(401);
-  jwt.verify(token, 'e1e7c8fa67a96e224cb0f77c4efe9', (err, user) => {
+  jwt.verify(token, JWT_SECRET, (err, user) => {
     //verifikujeme podla nasho tajneho kodu
     if (err) return res.sendStatus(403);
     req.user = user; //ulozime verifikovaneho usera
