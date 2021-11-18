@@ -11,6 +11,8 @@ import {MatIconModule} from "@angular/material/icon";
 import { LoginComponent } from './login/login.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -19,15 +21,17 @@ import {MatInputModule} from "@angular/material/input";
     CustomerComponent,
     LoginComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+      HttpClientModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

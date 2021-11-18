@@ -5,18 +5,20 @@ const jwt = require('jsonwebtoken');
 const db = require('../models');
 
 module.exports.postLogin = async (req, res) => {
-  //hladame usera podla parametrov z tela http requestu
+    //hladame usera podla parametrov z tela http requestu
   db.user
     .findOne({
       where: { email: req.body.email },
     })
     .then(async (user) => {
       if (user == null || !(await user.validPassword(req.body.password))) {
-        res.status(403);
-        return res.send('wrong username or password');
+        res.status(401);
+        return res.end;
       }
       const token = jwt.sign({ user }, 'e1e7c8fa67a96e224cb0f77c4efe9');
-      res.send(token);
+        res.cookie("SESSIONID", token, {httpOnly:true, secure:false}); // zmen secure na true ak spravime https
+        res.end()
+        // res.send(JSON.stringify({ token: token}));
     }); //ak najdeme vratime token zasifrovany podla tajneho kodu
 };
 
