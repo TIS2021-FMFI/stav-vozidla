@@ -1,7 +1,6 @@
 // 3rd party modules
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 
 //  Middleware
 const {

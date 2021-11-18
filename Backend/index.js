@@ -4,8 +4,19 @@ var schedule = require('node-schedule');
 //  ------- Routes Part -------
 const router = require('./routes/router');
 const app = express();
-const PORT = 5000;
+var cookieParser = require('cookie-parser')
 
+const PORT = 8085;
+const cors=require("cors");
+const corsOptions ={
+  origin:'http://localhost:4200',
+  credentials:true,
+  optionSuccessStatus:200,
+}
+
+
+app.use(cors(corsOptions))
+app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

@@ -2,19 +2,19 @@
   <div class="login-form">
     <img src="assets/logo.png"/>
     <h1>Prihlásenie</h1>
-    <form class="inputs">
+    <div class="inputs">
       <mat-form-field>
         <mat-label class="label">Emailová adresa</mat-label>
-        <input matInput >
+        <input [(ngModel)]="email" matInput >
       </mat-form-field>
 
       <mat-form-field>
         <mat-label class="label">Heslo</mat-label>
-        <input matInput type="password" >
+        <input [(ngModel)]="password" matInput type="password" >
       </mat-form-field>
-    </form>
+    </div>
 
-    <button mat-flat-button color="accent" class="login-button">Prihlásiť sa</button>
+    <button mat-flat-button color="accent" class="login-button" (click)="login()">Prihlásiť sa</button>
     <button mat-button color="accent" class="forgot-password-button">Zabudol som heslo</button>
   </div>
 </section>
