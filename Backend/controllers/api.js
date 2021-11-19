@@ -16,12 +16,14 @@ module.exports.postLogin = async (req, res) => {
       where: { email: req.body.email },
     })
     .then(async (user) => {
+      console.log(user);
       if (user == null || !(await user.validPassword(req.body.password))) {
-        res.status(403);
-        return res.send('wrong username or password');
+        return res.status(401).send('Invalid Credentials');
       }
       const token = jwt.sign({ user }, JWT_SECRET);
-      res.send(token);
+      res.cookie('SESSIONID', token, { httpOnly: true, secure: false }); // zmen secure na true ak spravime https
+      res.end();
+      // res.send(JSON.stringify({ token: token}));
     }); //ak najdeme vratime token zasifrovany podla tajneho kodu
 };
 

@@ -1,0 +1,19 @@
+
+@use '~@angular/material' as mat;
+@include mat.core();
+@import "palette";
+
+$stav-vozidla-primary: mat.define-palette($mat-primary);
+$stav-vozidla-accent: mat.define-palette($mat-accent);
+$stav-vozidla-warn: mat.define-palette(mat.$red-palette);
+$stav-vozidla-theme: mat.define-light-theme((
+  color: (
+    primary: $stav-vozidla-primary,
+    accent: $stav-vozidla-accent,
+    warn: $stav-vozidla-warn
+  )
+));
+@include mat.all-component-themes($stav-vozidla-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

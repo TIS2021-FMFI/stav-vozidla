@@ -1,12 +1,13 @@
-var inspect = require('util').inspect;
 var fs = require('fs');
 var parse = require('csv-parse');
 var { Base64Decode } = require('base64-stream');
 var Imap = require('imap');
 var csvData = [];
+var lastCheck;
+var maxUID = 0;
 const Sequelize = require('sequelize');
-const moment = require('moment');
 const db = require('../models');
+const dataImporter = require('../controllers/dataImporter');
 
 var imap = new Imap({
   user: 'stav.vozidla@gmail.com',
@@ -47,6 +48,7 @@ function buildAttMessageFunction(attachment) {
 
   return function (msg, seqno) {
     var prefix = '(#' + seqno + ') ';
+    maxUID = seqno;
     msg.on('body', function (stream, info) {
       //Create a write stream so that we can stream the attachment to file;
       console.log(
@@ -70,33 +72,10 @@ function buildAttMessageFunction(attachment) {
           .on('data', async function (csvrow) {
             //do something with csvrow
             csvData.push(csvrow);
-            var completionDate =
-              csvrow[3] == ''
-                ? null
-                : moment.utc(csvrow[3], 'DD.MM.YYYY HH:mm');
-            db.Order.findOrCreate({
-              where: { VIN: csvrow[0], entryDate: csvrow[1] },
-              // in the event that it is not found
-              defaults: {
-                vehicleName: csvrow[0],
-                idGefco: 99,
-              },
-              isolationLevel:
-                Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
-            }).then((Order) => {
-              console.log(Order[0].dataValues.id);
-              db.Update.create({
-                statusCode: csvrow[4],
-                serviceName: csvrow[2],
-                orderId: Order[0].dataValues.id,
-                completionDate: completionDate,
-              });
-            });
           })
           .on('end', function () {
             //do something with csvData
             //console.log(csvData);
-            return csvData;
           });
       } else {
         //here we have none or some other decoding streamed directly to the file which renders it useless probably
@@ -110,41 +89,47 @@ function buildAttMessageFunction(attachment) {
 }
 
 imap.once('ready', function () {
-  imap.openBox('INBOX', true, function (err, box) {
+  imap.openBox('INBOX', true, async function (err, box) {
     if (err) throw err;
     //['UNSEEN', ['SINCE', moment(DATE_USER).format('ll')]]
-    imap.search(
-      ['ALL', ['SINCE', 'May 20, 2010']],
-      function (err, results) {
-        if (err) throw err;
-        var f = imap.seq.fetch(results, {
-          bodies: ['HEADER.FIELDS (FROM TO SUBJECT DATE)'],
-          struct: true,
+    lastCheck = await db.EmailUID.findOrCreate({
+      where: { id: 1 },
+      // in the event that it is not found
+      defaults: {
+        lastEmailUID: 1,
+      },
+      isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
+    });
+    const LastUID = lastCheck[0].dataValues.lastEmailUID;
+    if (LastUID + 1 == box.uidnext) {
+      console.log('No new messages');
+      return;
+    }
+    var f = imap.seq.fetch(`${LastUID + 1}:*`, {
+      bodies: ['HEADER.FIELDS (FROM TO SUBJECT DATE)'],
+      struct: true,
+    });
+    f.on('message', function (msg, seqno) {
+      console.log('Message #%d', seqno);
+      var prefix = '(#' + seqno + ') ';
+      msg.on('body', function (stream, info) {
+        var buffer = '';
+        stream.on('data', function (chunk) {
+          buffer += chunk.toString('utf8');
         });
-        f.on('message', function (msg, seqno) {
-          console.log('Message #%d', seqno);
-          var prefix = '(#' + seqno + ') ';
-          msg.on('body', function (stream, info) {
-            var buffer = '';
-            stream.on('data', function (chunk) {
-              buffer += chunk.toString('utf8');
-            });
-            stream.once('end', function () {
-              console.log(
-                prefix + 'Parsed header: %s',
-                Imap.parseHeader(buffer)
-              );
-            });
-          });
-          msg.once('attributes', function (attrs) {
-            var attachments = findAttachmentParts(attrs.struct);
-            console.log(
-              prefix + 'Has attachments: %d',
-              attachments.length
-            );
-            for (var i = 0, len = attachments.length; i < len; ++i) {
-              var attachment = attachments[i];
-              /*This is how each attachment looks like {
+        stream.once('end', function () {
+          console.log(
+            prefix + 'Parsed header: %s',
+            Imap.parseHeader(buffer)
+          );
+        });
+      });
+      msg.once('attributes', function (attrs) {
+        var attachments = findAttachmentParts(attrs.struct);
+        console.log(prefix + 'Has attachments: %d', attachments.length);
+        for (var i = 0, len = attachments.length; i < len; ++i) {
+          var attachment = attachments[i];
+          /*This is how each attachment looks like {
               partID: '2',
               type: 'application',
               subtype: 'octet-stream',
@@ -158,32 +143,31 @@ imap.once('ready', function () {
               language: null
             }
           */
-              console.log(
-                prefix + 'Fetching attachment %s',
-                attachment.params.name
-              );
-              var f = imap.fetch(attrs.uid, {
-                //do not use imap.seq.fetch here
-                bodies: [attachment.partID],
-                struct: true,
-              });
-              //build function to process attachment message
-              f.on('message', buildAttMessageFunction(attachment));
-            }
+          console.log(
+            prefix + 'Fetching attachment %s',
+            attachment.params.name
+          );
+          var f = imap.fetch(attrs.uid, {
+            //do not use imap.seq.fetch here
+            bodies: [attachment.partID],
+            struct: true,
           });
-          msg.once('end', function () {
-            console.log(prefix + 'Finished email');
-          });
-        });
-        f.once('error', function (err) {
-          console.log('Fetch error: ' + err);
-        });
-        f.once('end', function () {
-          console.log('Done fetching all messages!');
-          imap.end();
-        });
-      }
-    );
+          //build function to process attachment message
+          f.on('message', buildAttMessageFunction(attachment));
+        }
+      });
+      msg.once('end', function () {
+        console.log(prefix + 'Finished email');
+      });
+    });
+    f.once('error', function (err) {
+      console.log('Fetch error: ' + err);
+    });
+    f.once('end', function () {
+      console.log('Done fetching all messages!');
+      imap.end();
+      return;
+    });
   });
 });
 
@@ -191,10 +175,13 @@ imap.once('error', function (err) {
   console.log(err);
 });
 
-imap.once('end', function () {
+imap.once('end', async function () {
   console.log('Connection ended');
+  dataImporter.importData(csvData);
+  await lastCheck[0].update({ lastEmailUID: maxUID });
+  console.log('Last fetchd email UID set to ' + maxUID);
 });
 
-module.exports.connect = () => {
+module.exports.connect = async () => {
   return imap.connect();
 };

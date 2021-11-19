@@ -2,20 +2,31 @@ const express = require('express');
 const db = require('./models');
 const schedule = require('node-schedule');
 const mailReader = require('./controllers/mailReader');
-//  ------- Routes Part -------
 const router = require('./routes/router');
 const app = express();
-const PORT = 5000;
+var cookieParser = require('cookie-parser');
+const cors = require('cors');
 
+//config
+const PORT = 8085;
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+const job = schedule.scheduleJob('40 * * * *', function () {
+  console.log('Import of data');
+});
+
+//middlaware
+app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // routes
 app.use('/', router);
 
-const job = schedule.scheduleJob('40 * * * *', function () {
-  console.log('Import of data');
-});
 console.log(mailReader.connect());
 
 db.sequelize.sync().then(() => {

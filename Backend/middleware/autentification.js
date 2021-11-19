@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET, JWT_EXPIRE } = process.env;
+const JWT_SECRET = require(__dirname + '/../config/config.json')[
+  'JWT_SECRET'
+];
 
 function authUser(req, res, next) {
   console.log(req.user);
@@ -19,7 +21,7 @@ function authAdmin(req, res, next) {
 }
 
 function authenticateToken(req, res, next) {
-  const token = req.body.token; //token z tele http requestu
+  const token = req.cookies['SESSIONID']; //token z tele http requestu
   if (token == null) return res.sendStatus(401);
   jwt.verify(token, JWT_SECRET, (err, user) => {
     //verifikujeme podla nasho tajneho kodu
