@@ -22,7 +22,7 @@ module.exports.postLogin = async (req, res) => {
       }
       const token = jwt.sign({ user }, JWT_SECRET);
       res.cookie('SESSIONID', token, { httpOnly: true, secure: false }); // zmen secure na true ak spravime https
-      res.end();
+      res.end('Logged in sucessfuly');
       // res.send(JSON.stringify({ token: token}));
     }); //ak najdeme vratime token zasifrovany podla tajneho kodu
 };
@@ -54,6 +54,57 @@ module.exports.postCreateUser = async (req, res) => {
   }
 };
 
+module.exports.postChangePassword = async (req, res) => {
+  if (!req.body.oldPassword || !req.body.newPassword) {
+    res.status(400).send({
+      status: false,
+      message: 'No old or new password',
+    });
+  } else {
+    const user = await db.user.findOne({
+      where: { idUsers: req.user.user.idUsers },
+    });
+    //if (!user) return res.status(400).send('User dont exist');
+    if (!(await user.validPassword(req.body.oldPassword))) {
+      return res.status(401).send('Invalid old password');
+    }
+    return user
+      .update({
+        password: req.body.newPassword,
+      })
+      .then(function (user) {
+        res.status(201).send(user);
+      });
+  }
+};
+
+module.exports.postUpdateUser = async (req, res) => {
+  return db.user
+    .findOne({
+      where: { idUsers: req.params.id },
+    })
+    .then(function (result) {
+      if (!result) return res.status(400).send('User dont exist');
+      return result
+        .update({
+          email: req.body.email,
+          password: req.body.password,
+          admin: req.body.admin,
+          idGefco: req.body.idGefco,
+          name: req.body.name,
+        })
+        .then(function (user) {
+          res.status(201).send(user);
+        });
+    });
+};
+
 module.exports.getAllUsers = (req, res) => {
   db.user.findAll().then((users) => res.send(users));
+};
+
+module.exports.getUser = (req, res) => {
+  db.user
+    .findOne({ where: { idUsers: req.params.id } })
+    .then((user) => res.send(user));
 };

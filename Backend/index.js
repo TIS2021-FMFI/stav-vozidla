@@ -27,7 +27,8 @@ app.use(express.json());
 // routes
 app.use('/', router);
 
-console.log(mailReader.connect());
+//initial mail fetch
+mailReader.connect();
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
