@@ -1,5 +1,5 @@
 
-
+###login admina
 POST http://localhost:8085/api/login
 Content-Type: application/json
 
@@ -7,22 +7,65 @@ Content-Type: application/json
     "email":"admin@admin.sk",
     "password":"admin123"
 }
-###
-POST http://localhost:8085/api/users
-Content-Type: application/json
-Cookie: SESSIONID=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkVXNlcnMiOiIxIiwiaWRHZWZjbyI6IjAiLCJlbWFpbCI6ImFkbWluQGFkbWluLnNrIiwibmFtZSI6IkFkbWluIiwicGFzc3dvcmQiOiIkMmIkMTAkdnpTdWVFRnZycXpkMUdBbDd4eXBNT3g3YTgwWHcwVmxzbGk2WHEuN0kvNDhvYzR5MzFXSy4iLCJhZG1pbiI6dHJ1ZSwicmVzZXRUb2tlbiI6bnVsbH0sImlhdCI6MTYzNzI0NjU5OH0.l5FiTQsIz8pssL4GYpZi9kU86sOPMWAt9YqCyEYQmg8; Path=/; HttpOnly;
-
-{
-    "email":"testUser1@testUser.sk",
-    "password":"User123",
-    "idGefco": 25,
-    "admin": false,
-    "name": "Jozo"
-}
-###
+### get all users (only admin)
 GET  http://localhost:8085/api/users
 Content-Type: application/json
-Cookie: SESSIONID=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkVXNlcnMiOiIxIiwiaWRHZWZjbyI6IjAiLCJlbWFpbCI6ImFkbWluQGFkbWluLnNrIiwibmFtZSI6IkFkbWluIiwicGFzc3dvcmQiOiIkMmIkMTAkdnpTdWVFRnZycXpkMUdBbDd4eXBNT3g3YTgwWHcwVmxzbGk2WHEuN0kvNDhvYzR5MzFXSy4iLCJhZG1pbiI6dHJ1ZSwicmVzZXRUb2tlbiI6bnVsbH0sImlhdCI6MTYzNzI0NjU5OH0.l5FiTQsIz8pssL4GYpZi9kU86sOPMWAt9YqCyEYQmg8; Path=/; HttpOnly;
+
+{
+}
+### get one user with id (only admin)
+GET  http://localhost:8085/api/users/1
+Content-Type: application/json
+
+{
+}
+### create user (only admin)
+POST http://localhost:8085/api/users
+Content-Type: application/json
+
+{
+    "email":"testUser1234@testUser.sk",
+    "password":"User1234",
+    "idGefco": "048751481.649",
+    "admin": false,
+    "name": "USERKO"
+}
+### update user (only admin)
+POST http://localhost:8085/api/users/2
+Content-Type: application/json
+
+{
+    "email":"testUser1234@testUser.sk",
+    "password":"User1234",
+    "idGefco": "048751481.649",
+    "admin": false,
+    "name": "USERdKOK"
+}
+### login not admin
+POST http://localhost:8085/api/login
+Content-Type: application/json
+
+{
+    "email":"testUser1234@testUser.sk",
+    "password":"User1234"
+}
+### change passwort for not admin
+POST http://localhost:8085/api/users/change-password
+Content-Type: application/json
+
+{
+    "oldPassword":"User1234",
+    "newPassword":"User1234"
+}
+### get order with id 
+GET  http://localhost:8085/api/order/1
+Content-Type: application/json
+
+{
+}
+### get all orders of logged user / all orders in system for admin
+GET  http://localhost:8085/api/order
+Content-Type: application/json
 
 {
 }
