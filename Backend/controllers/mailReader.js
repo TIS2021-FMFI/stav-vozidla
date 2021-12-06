@@ -48,7 +48,6 @@ function buildAttMessageFunction(attachment) {
 
   return function (msg, seqno) {
     var prefix = '(#' + seqno + ') ';
-    maxUID = seqno;
     msg.on('body', function (stream, info) {
       //Create a write stream so that we can stream the attachment to file;
       console.log(
@@ -56,10 +55,6 @@ function buildAttMessageFunction(attachment) {
         filename,
         info
       );
-      var writeStream = fs.createWriteStream(filename);
-      writeStream.on('finish', function () {
-        console.log(prefix + 'Done writing to file %s', filename);
-      });
 
       //stream.pipe(writeStream); this would write base64 data to the file.
       //so we decode during streaming using
@@ -79,7 +74,6 @@ function buildAttMessageFunction(attachment) {
           });
       } else {
         //here we have none or some other decoding streamed directly to the file which renders it useless probably
-        stream.pipe(writeStream);
       }
     });
     msg.once('end', function () {
@@ -96,11 +90,12 @@ imap.once('ready', function () {
       where: { id: 1 },
       // in the event that it is not found
       defaults: {
-        lastEmailUID: 1,
+        lastEmailUID: 10,
       },
       isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
     });
     const LastUID = lastCheck[0].dataValues.lastEmailUID;
+    console.log(box.uidnext);
     if (LastUID + 1 == box.uidnext) {
       console.log('No new messages');
       return;
@@ -111,6 +106,9 @@ imap.once('ready', function () {
     });
     f.on('message', function (msg, seqno) {
       console.log('Message #%d', seqno);
+      msg.on('attributes', function (attrs) {
+        maxUID = attrs.uid;
+      });
       var prefix = '(#' + seqno + ') ';
       msg.on('body', function (stream, info) {
         var buffer = '';

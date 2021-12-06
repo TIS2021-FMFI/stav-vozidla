@@ -14,11 +14,38 @@ const {
   postLogin,
   getAllUsers,
   postCreateUser,
+  getUser,
+  postUpdateUser,
+  postChangePassword,
 } = require('../../controllers/api');
 
 router.post('/login/', postLogin);
 
-router.post('/users/', authenticateToken, authUser, authAdmin, postCreateUser);
+router.post(
+  '/users/',
+  authenticateToken,
+  authUser,
+  authAdmin,
+  postCreateUser
+);
+
 router.get('/users/', authenticateToken, authUser, authAdmin, getAllUsers);
+
+router.get('/users/:id', authenticateToken, authUser, authAdmin, getUser);
+
+router.post(
+  '/users/change-password/',
+  authenticateToken,
+  authUser,
+  postChangePassword
+);
+
+router.post(
+  '/users/:id',
+  authenticateToken,
+  authUser,
+  authAdmin,
+  postUpdateUser
+);
 
 module.exports = router;

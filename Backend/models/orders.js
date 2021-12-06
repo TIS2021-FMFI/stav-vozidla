@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       idGefco: {
-        type: DataTypes.BIGINT.UNSIGNED,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
