@@ -15,8 +15,8 @@ module.exports.importData = (csvData) => {
           vehicleName: `${csvrow[1]} ${csvrow[2]}`,
           idGefco: csvrow[0],
         },
-        isolationLevel:
-          Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
+        //isolationLevel:
+        //Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
       }).then((Order) => {
         db.Update.create({
           statusCode: csvrow[7],
