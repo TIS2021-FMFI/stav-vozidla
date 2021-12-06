@@ -104,7 +104,8 @@ module.exports.getAllUsers = (req, res) => {
 };
 
 module.exports.getUser = (req, res) => {
-  db.user
-    .findOne({ where: { idUsers: req.params.id } })
-    .then((user) => res.send(user));
+  db.user.findOne({ where: { idUsers: req.params.id } }).then((user) => {
+    if (!user) return res.status(400).send('User dont exist');
+    res.send(user);
+  });
 };

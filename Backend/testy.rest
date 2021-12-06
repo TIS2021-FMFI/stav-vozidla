@@ -14,7 +14,7 @@ Content-Type: application/json
 {
 }
 ### get one user with id (only admin)
-GET  http://localhost:8085/api/users/1
+GET  http://localhost:8085/api/users/2
 Content-Type: application/json
 
 {
