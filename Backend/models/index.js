@@ -44,8 +44,7 @@ Object.keys(db).forEach((modelName) => {
 
 db.Order.hasMany(db.Update, {
   foreignKey: {
-    allowNull: false,
-    unique: 'uniqueTag',
+    allowNull: false
   },
 });
 db.Update.belongsTo(db.Order);

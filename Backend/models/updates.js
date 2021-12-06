@@ -10,12 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       statusCode: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: 'uniqueTag',
       },
       serviceName: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: 'uniqueTag',
       },
       completionDate: {
         type: DataTypes.DATE,
