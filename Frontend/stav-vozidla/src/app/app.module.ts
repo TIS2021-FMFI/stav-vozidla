@@ -13,24 +13,38 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { OrdersTableComponent } from './orders-table/orders-table.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { OrderComponent } from './order/order.component';
+import { TimelineComponent } from './timeline/timeline.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     CustomerComponent,
-    LoginComponent
+    LoginComponent,
+    OrdersTableComponent,
+    OrderComponent,
+    TimelineComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-      HttpClientModule,
+        HttpClientModule,
         BrowserAnimationsModule,
         MatButtonModule,
         MatIconModule,
         MatFormFieldModule,
         MatInputModule,
-        FormsModule
+        FormsModule,
+        MatTableModule,
+        MatCheckboxModule,
+        MatSortModule,
+        MatPaginatorModule
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -100,8 +100,8 @@ module.exports.postUpdateUser = async (req, res) => {
 };
 
 module.exports.getAllUsers = (req, res) => {
-  db.user.findAll().then((users) => res.send(users));
-};
+    db.user.findAll().then((users) => res.send(users));
+}
 
 module.exports.getUser = (req, res) => {
   db.user
