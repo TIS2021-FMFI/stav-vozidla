@@ -1,0 +1,11 @@
+<section>
+  <div class="service-container" *ngFor="let service of services">
+    <div class="service">
+      <span class="service-name">{{service.name}}</span>
+      <mat-icon>done</mat-icon>
+      <span class="service-date">{{service.dateOfCompletion | date:'d.M.y'  }}</span>
+    </div>
+    <div class="divider"></div>
+  </div>
+
+</section>

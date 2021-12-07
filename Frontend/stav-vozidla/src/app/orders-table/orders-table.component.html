@@ -1,0 +1,94 @@
+<section>
+  <mat-form-field class="input-filter" color="accent">
+    <mat-label style="margin-left: 8px">Vyhľadávanie</mat-label>
+    <mat-icon matPrefix style="padding-top: 6px">search</mat-icon>
+    <input matInput (keyup)="applyFilter($event.target)"  style="margin-left: 8px">
+  </mat-form-field>
+
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef class="select">
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()" class="select-checkbox" >
+        </mat-checkbox>
+
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row, let i = index" class="select">
+        <mat-checkbox (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)" class="select-checkbox">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="vin">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="vin">VIN</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="vin">
+        <span class="table-value title-row" rel="noreferrer">{{element.vin}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dateOfCreation">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="date-creation">Dátum prijatia vozidla</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="date-creation" >
+        <span class="table-value">{{element.dateOfCreation | date:'d.M.y'  }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dateOfUpdate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="date-update">Dátum poslednej zmeny</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="date-update">
+        <span class="table-value">{{element.dateOfUpdate | date:'d.M.y'  }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="vehicleName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="model">Model vozidla</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="model">
+        <span class="table-value">{{element.vehicleName}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="finishedServices">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="finished-services">Dokončené služby</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="finished-services">
+        <span class="table-value">{{element.finishedServices}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="unfinishedServices">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="unfinished-services">Nedokončené služby</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="unfinished-services">
+        <span class="table-value">{{element.unfinishedServices}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="state">Stav</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="state">
+        <div *ngIf="element.unfinishedServices == 0" class="state-container finished">
+          <div class="state-value">dokončená</div>
+        </div>
+        <div *ngIf="element.unfinishedServices != 0" class="state-container unfinished">
+          <div class="state-value">prebieha</div>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="test()"></mat-row>
+  </mat-table>
+
+
+  <div class="table-settings">
+    <button mat-flat-button color="primary">
+      <mat-icon>download</mat-icon>
+      Download file</button>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   class="pagination">
+    </mat-paginator>
+  </div>
+
+
+</section>

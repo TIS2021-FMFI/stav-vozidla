@@ -1,0 +1,94 @@
+section {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1600px;
+  padding: 16px 32px;
+
+  .input-filter {
+    width: 100%;
+  }
+
+  mat-cell, mat-header-cell {
+    justify-content: center;
+    overflow-wrap: normal;
+  }
+
+  mat-cell span, div {
+    margin-right: 20px;
+  }
+
+  .select {
+    flex: 0 0 3%;
+  }
+
+  .vin {
+    flex: 0 0 15%;
+  }
+
+  .date-creation {
+    flex: 0 0 15%;
+  }
+
+  .date-update {
+    flex: 0 0 15%;
+  }
+
+  .model {
+    flex: 0 0 15%;
+
+  }
+
+  .finished-services {
+    flex: 0 0 11%;
+
+  }
+
+  .unfinished-services {
+    flex: 0 0 11%;
+  }
+
+  .state {
+    flex: 0 0 15%;
+  }
+
+  .state-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 14px;
+    width: 112px;
+    height: 28px;
+
+    .state-value{
+      margin: auto;
+    }
+  }
+
+  .finished{
+    background-color: #00A3891A;
+    .state-value {
+      color: #00A389;
+    }
+  }
+
+  .unfinished{
+    background-color: #FF4A551A;
+    .state-value {
+      color: #FF4A55;
+    }
+  }
+
+
+
+  .table-settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+
+}

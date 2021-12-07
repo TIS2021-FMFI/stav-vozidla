@@ -1,0 +1,40 @@
+section {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .service-container {
+    display: flex;
+    align-items: center;
+
+    .service-name{
+      margin-bottom: 24px;
+
+    }
+    mat-icon {
+      color: green;
+      transform: scale(2);
+    }
+
+    .service-date{
+      margin-top: 24px;
+
+    }
+
+    .service {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+.service-container:not(:last-child) {
+  .divider {
+    width: 64px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+}
+
