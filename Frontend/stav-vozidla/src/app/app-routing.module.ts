@@ -6,7 +6,7 @@ import {OrdersTableComponent} from "./orders-table/orders-table.component";
 import {OrderComponent} from "./order/order.component";
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: '', component: OrdersTableComponent},
 ];
 
 @NgModule({

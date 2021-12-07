@@ -20,6 +20,9 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { OrderComponent } from './order/order.component';
 import { TimelineComponent } from './timeline/timeline.component';
+import { UsersTableComponent } from './users-table/users-table.component';
+import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { TimelineComponent } from './timeline/timeline.component';
     LoginComponent,
     OrdersTableComponent,
     OrderComponent,
-    TimelineComponent
+    TimelineComponent,
+    UsersTableComponent,
+    UserEditDialogComponent,
+    AdminComponent
   ],
     imports: [
         BrowserModule,

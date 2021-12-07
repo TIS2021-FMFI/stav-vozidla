@@ -11,11 +11,9 @@ import {MatPaginator} from "@angular/material/paginator";
   styleUrls: ['./orders-table.component.scss']
 })
 export class OrdersTableComponent implements AfterViewInit {
-
   dataSource: MatTableDataSource<Order>;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
 
   orders: Order[] = [
     {orderId: 10, vin: "INV-123", dateOfCreation: new Date(), dateOfUpdate: new Date(), vehicleName: "skoda", finishedServices: 0, unfinishedServices: 1, services: []},
