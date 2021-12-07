@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CustomerComponent } from './customer/customer.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import { LoginComponent } from './login/login.component';
@@ -22,20 +21,17 @@ import { OrderComponent } from './order/order.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { UsersTableComponent } from './users-table/users-table.component';
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
-import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    CustomerComponent,
     LoginComponent,
     OrdersTableComponent,
     OrderComponent,
     TimelineComponent,
     UsersTableComponent,
     UserEditDialogComponent,
-    AdminComponent
   ],
     imports: [
         BrowserModule,
