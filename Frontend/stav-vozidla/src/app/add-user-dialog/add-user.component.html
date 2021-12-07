@@ -1,0 +1,20 @@
+<section>
+  <h1>Vytvoriť zákaznika</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Meno</mat-label>
+    <input matInput type="text" [(ngModel)]="name">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput type="text" [(ngModel)]="email">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Gefco ID</mat-label>
+    <input matInput type="text" [(ngModel)]="gefcoId">
+  </mat-form-field>
+  <div style="display: flex; justify-content: space-between">
+    <mat-checkbox [(ngModel)]="isAdmin">Admin práva</mat-checkbox>
+    <button mat-flat-button color="accent" style="color: white" (click)="createUser()">Vytvoriť úživateľa</button>
+  </div>
+</section>
+

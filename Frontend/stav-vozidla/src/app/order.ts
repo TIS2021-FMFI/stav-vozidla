@@ -8,5 +8,6 @@ export interface Order{
   vehicleName: string
   finishedServices: number
   unfinishedServices: number
+  finished: boolean
   services: Service[]
 }

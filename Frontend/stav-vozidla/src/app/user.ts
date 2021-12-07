@@ -1,7 +1,8 @@
 export interface User{
-  userId: number
+  id: number
+  idGefco: number
   name: string
-  mail: string
+  email: string
   isActive: boolean
   isAdmin: boolean
 }
