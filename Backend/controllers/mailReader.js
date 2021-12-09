@@ -90,7 +90,7 @@ imap.once('ready', function () {
       where: { id: 1 },
       // in the event that it is not found
       defaults: {
-        lastEmailUID: 2,
+        lastEmailUID: 10,
       },
       isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
     });
@@ -100,7 +100,7 @@ imap.once('ready', function () {
       console.log('No new messages');
       return;
     }
-    var f = imap.seq.fetch(`${LastUID}:*`, {
+    var f = imap.fetch(`${LastUID + 1}:*`, {
       bodies: ['HEADER.FIELDS (FROM TO SUBJECT DATE)'],
       struct: true,
     });
