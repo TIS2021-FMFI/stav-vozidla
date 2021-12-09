@@ -1,1 +1,65 @@
-<p>users-table works!</p>
+<section>
+  <mat-form-field class="input-filter" color="accent">
+    <mat-label style="margin-left: 8px">Vyhľadávanie</mat-label>
+    <mat-icon matPrefix style="padding-top: 6px">search</mat-icon>
+    <input matInput (keyup)="applyFilter($event.target)"  style="margin-left: 8px">
+  </mat-form-field>
+
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="name">Meno</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="name">
+        <span class="table-value title-row" rel="noreferrer">{{element.name}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="gefcoId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="gefcoId">Gefco ID</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="gefcoId" >
+        <span class="table-value">{{element.idGefco}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="email">Email</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="email">
+        <span class="table-value">{{element.email }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="isAdmin">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="isAdmin">Admin</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="isAdmin">
+        <span class="table-value">{{element.isAdmin ? 'Áno' : 'Nie'}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="activate">
+      <mat-header-cell *matHeaderCellDef  class="activate"></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="activate">
+        <button mat-flat-button color="primary">Aktivovať</button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef  class="edit"></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="edit">
+        <button mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+  </mat-table>
+
+
+  <div class="table-settings">
+    <div></div>
+    <mat-paginator [pageSizeOptions]="[20, 50, 100]"
+                   showFirstLastButtons
+                   class="pagination">
+    </mat-paginator>
+  </div>
+</section>

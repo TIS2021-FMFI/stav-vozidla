@@ -38,10 +38,11 @@ module.exports.getOrders = async (req, res) => {
     : `WHERE o.idGefco = '${req.user.user.idGefco}'`;
 
   const orders = await db.sequelize.query(
-    `SELECT id, VIN, vehicleName, entryDate
-        ,sum(case MaxStatusCode when 400 then 1 else 0 end) Planned
-        ,sum(case MaxStatusCode when 500 then 1 else 0 end) Completed
-        ,sum(case MaxStatusCode when 600 then 1 else 0 end) Deleted
+    `SELECT id, VIN as vin, vehicleName, entryDate as dateOfCreation
+        ,sum(case MaxStatusCode when 400 then 1 else 0 end) unfinishedServices
+        ,sum(case MaxStatusCode when 500 then 1 else 0 end) finishedServices
+        ,sum(case MaxStatusCode when 600 then 1 else 0 end) removedServices
+        ,sum(case MaxStatusCode when 400 then 1 else 0 end) > 0 as finished
       FROM Orders o
       JOIN
       (SELECT OrderId, MAX(statusCode) AS MaxStatusCode

@@ -21,6 +21,9 @@ import { OrderComponent } from './order/order.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { UsersTableComponent } from './users-table/users-table.component';
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
+import { AddUserComponent } from './add-user-dialog/add-user.component';
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -32,22 +35,25 @@ import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.com
     TimelineComponent,
     UsersTableComponent,
     UserEditDialogComponent,
+    AddUserComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        FormsModule,
-        MatTableModule,
-        MatCheckboxModule,
-        MatSortModule,
-        MatPaginatorModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatSelectModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

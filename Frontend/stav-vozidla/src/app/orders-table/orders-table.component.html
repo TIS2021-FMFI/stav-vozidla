@@ -63,13 +63,13 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="state">
+    <ng-container matColumnDef="finished">
       <mat-header-cell *matHeaderCellDef mat-sort-header class="state">Stav</mat-header-cell>
       <mat-cell *matCellDef="let element" class="state">
-        <div *ngIf="element.unfinishedServices == 0" class="state-container finished">
+        <div *ngIf="element.finished == 0" class="state-container finished">
           <div class="state-value">dokončená</div>
         </div>
-        <div *ngIf="element.unfinishedServices != 0" class="state-container unfinished">
+        <div *ngIf="element.finished != 0" class="state-container unfinished">
           <div class="state-value">prebieha</div>
         </div>
       </mat-cell>
@@ -84,11 +84,9 @@
     <button mat-flat-button color="primary">
       <mat-icon>download</mat-icon>
       Download file</button>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+    <mat-paginator [pageSizeOptions]="[20, 50, 100]"
                    showFirstLastButtons
                    class="pagination">
     </mat-paginator>
   </div>
-
-
 </section>
