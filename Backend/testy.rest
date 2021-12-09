@@ -31,7 +31,7 @@ Content-Type: application/json
     "name": "USERKO"
 }
 ### update user (only admin)
-POST http://localhost:8085/api/users/2
+POST http://localhost:8085/api/users/1
 Content-Type: application/json
 
 {
@@ -41,6 +41,12 @@ Content-Type: application/json
     "admin": false,
     "name": "USERdKOK"
 }
+### delete user (only admin)
+DELETE  http://localhost:8085/api/users/1
+Content-Type: application/json
+
+{
+}
 ### login not admin
 POST http://localhost:8085/api/login
 Content-Type: application/json
@@ -49,16 +55,35 @@ Content-Type: application/json
     "email":"testUser1234@testUser.sk",
     "password":"User1234"
 }
+### get logged user not admin
+GET http://localhost:8085/api/users/logged-user
+Content-Type: application/json
+
+{
+}
 ### change passwort for not admin
 POST http://localhost:8085/api/users/change-password
 Content-Type: application/json
 
 {
-    "oldPassword":"User1234",
-    "newPassword":"User1234"
+    "oldPassword":"admin123",
+    "newPassword":"admin123"
 }
 ### get order with id 
 GET  http://localhost:8085/api/order/1
+Content-Type: application/json
+
+{
+}
+### export selected
+GET  http://localhost:8085/api/order/export
+Content-Type: application/json
+
+{
+    "idArray":[1,2]
+}
+### export all user`s orders
+GET  http://localhost:8085/api/order/export
 Content-Type: application/json
 
 {

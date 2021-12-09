@@ -2,6 +2,8 @@
 const db = require('../models');
 const Sequelize = require('sequelize');
 
+const { Parser } = require('json2csv');
+
 module.exports.getOrder = (req, res) => {
   const idCheck = req.user.user.admin
     ? {}
@@ -23,6 +25,13 @@ module.exports.getOrder = (req, res) => {
           [Sequelize.fn('max', Sequelize.col('statusCode')), 'statusCode'],
         ],
         group: ['serviceName'],
+        where: {
+          [Sequelize.Op.or]: [{ statusCode: 400 }, { statusCode: 500 }],
+        },
+        order: [
+          Sequelize.fn('isnull', Sequelize.col('completionDate')),
+          ['completionDate', 'ASC'],
+        ],
       });
       res.status(201).send({ ...order.dataValues, updates });
     })
@@ -54,4 +63,47 @@ module.exports.getOrders = async (req, res) => {
     { type: Sequelize.QueryTypes.SELECT }
   );
   res.status(200).send(orders);
+};
+
+module.exports.getOrdersCSV = async (req, res) => {
+  const idCheck = req.user.user.admin
+    ? {}
+    : { idGefco: req.user.user.idGefco };
+
+  db.Update.findAll({
+    attributes: [
+      'statusCode',
+      'serviceName',
+      'completionDate',
+      'Order.VIN',
+      'Order.vehicleName',
+      'Order.entryDate',
+      'Order.idGefco',
+    ],
+    include: {
+      model: db.Order,
+      attributes: [],
+      where: req.body.idArray
+        ? {
+            id: req.body.idArray,
+          }
+        : {},
+    },
+    where: { ...idCheck },
+    raw: true,
+  }).then((data) => {
+    const jsonUsers = JSON.parse(JSON.stringify(data));
+    const json2csvParser = new Parser();
+
+    // -> Convert JSON to CSV data
+    const csv = json2csvParser.parse(jsonUsers);
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename=export.csv'
+    );
+
+    res.status(200).end(csv);
+  });
 };

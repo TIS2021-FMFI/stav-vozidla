@@ -1,9 +1,10 @@
 {
   "development": {
-    "username": "robert",
-    "password": "",
-    "database": "tis",
-    "host": "localhost",
-    "dialect": "postgresql"
-  }
+    "username": "root",
+    "password": "password",
+    "database": "telefonny_zoznam",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "JWT_SECRET": "e1e7c8fa67a96e224cb0f77c4efe9"
 }

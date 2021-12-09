@@ -17,6 +17,8 @@ const {
   getUser,
   postUpdateUser,
   postChangePassword,
+  getLoggedUser,
+  deleteUser,
 } = require('../../controllers/api');
 
 router.post('/login/', postLogin);
@@ -31,7 +33,22 @@ router.post(
 
 router.get('/users/', authenticateToken, authUser, authAdmin, getAllUsers);
 
+router.get(
+  '/users/logged-user/',
+  authenticateToken,
+  authUser,
+  getLoggedUser
+);
+
 router.get('/users/:id', authenticateToken, authUser, authAdmin, getUser);
+
+router.delete(
+  '/users/:id',
+  authenticateToken,
+  authUser,
+  authAdmin,
+  deleteUser
+);
 
 router.post(
   '/users/change-password/',
