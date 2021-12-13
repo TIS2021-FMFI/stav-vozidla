@@ -95,7 +95,6 @@ imap.once('ready', function () {
       isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
     });
     const LastUID = lastCheck[0].dataValues.lastEmailUID;
-    console.log(box.uidnext);
     if (LastUID + 1 == box.uidnext) {
       console.log('No new messages');
       return;
@@ -177,7 +176,7 @@ imap.once('error', function (err) {
 imap.once('end', async function () {
   console.log('Connection ended');
   dataImporter.importData(csvData);
-  // await lastCheck[0].update({ lastEmailUID: maxUID });
+  await lastCheck[0].update({ lastEmailUID: maxUID });
   console.log('Last fetchd email UID set to ' + maxUID);
 });
 

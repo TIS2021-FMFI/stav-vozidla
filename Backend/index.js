@@ -27,6 +27,13 @@ app.use(express.json());
 // routes
 app.use('/', router);
 
+//frontend
+app.use(express.static('stav-vozidla'));
+// For virtual routes
+app.use('*', (req, res) => {
+  res.sendFile(__dirname + '/stav-vozidla/index.html');
+});
+
 //initial mail fetch
 mailReader.connect();
 
