@@ -18,7 +18,7 @@ export class AuthenticationService {
   }
 
   getLoggedInUserRequest() {
-    return this.http.get<User>(environment.appUrl + '/api/login', {
+    return this.http.get<User>(environment.appUrl + '/api/users/logged-user', {
       withCredentials: true,
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
     }).pipe(shareReplay(1));
@@ -32,6 +32,6 @@ export class AuthenticationService {
     }, {
       withCredentials: true,
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
-    }).pipe(map((user: User) => this.user = user)).subscribe()
+    }).pipe(tap((user: User) => this.user = user)).subscribe()
   }
 }

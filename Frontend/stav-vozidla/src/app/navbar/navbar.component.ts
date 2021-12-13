@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {AddUserComponent} from "../add-user-dialog/add-user.component";
+import {AddUserComponent} from "../add-user/add-user.component";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-navbar',
@@ -10,12 +11,14 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+
+  constructor(public router: Router, public authenticationService: AuthenticationService) {
+  }
 
   ngOnInit(): void {
   }
 
-  openAddPersonDialog() {
-    this.router.navigate(['/add-user'])
+  goToRoute(route: string, params: any) {
+    this.router.navigate([route], {queryParams : params})
   }
 }
