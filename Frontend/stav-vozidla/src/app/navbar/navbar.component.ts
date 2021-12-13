@@ -21,4 +21,8 @@ export class NavbarComponent implements OnInit {
   goToRoute(route: string, params: any) {
     this.router.navigate([route], {queryParams : params})
   }
+
+  logout() {
+    this.authenticationService.logout()
+  }
 }

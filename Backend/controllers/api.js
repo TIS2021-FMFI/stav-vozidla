@@ -22,9 +22,19 @@ module.exports.postLogin = async (req, res) => {
       }
       const token = jwt.sign({ user }, JWT_SECRET);
       res.cookie('SESSIONID', token, { httpOnly: true, secure: false }); // zmen secure na true ak spravime https
-      res.end('Logged in sucessfuly');
-      // res.send(JSON.stringify({ token: token}));
+      res.send({
+          id: user.idUsers,
+          idGefco: user.idGefco,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.admin,
+      });
     }); //ak najdeme vratime token zasifrovany podla tajneho kodu
+};
+
+module.exports.postLogout = async (req, res) => {
+    res.clearCookie('SESSIONID');
+    res.end()
 };
 
 module.exports.postCreateUser = async (req, res) => {
@@ -42,7 +52,7 @@ module.exports.postCreateUser = async (req, res) => {
       .create({
         email: req.body.email,
         password: req.body.password,
-        admin: req.body.admin,
+        isAdmin: req.body.admin,
         idGefco: req.body.idGefco,
         name: req.body.name,
       })
@@ -103,7 +113,7 @@ module.exports.postUpdateUser = async (req, res) => {
         .update({
           email: req.body.email,
           password: req.body.password,
-          admin: req.body.admin,
+          isAdmin: req.body.admin,
           idGefco: req.body.idGefco,
           name: req.body.name,
         })

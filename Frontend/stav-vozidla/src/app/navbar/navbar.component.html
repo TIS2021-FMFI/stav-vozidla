@@ -5,8 +5,8 @@
     </div>
 
     <div class="actions">
-      <button mat-icon-button color="white" (click)="goToRoute('users', null)">
-        <mat-icon class="material-icons-outlined" [class.selected-navbar-item]="this.router.url.startsWith('/users')">person</mat-icon>
+      <button mat-icon-button color="white" (click)="goToRoute('profile', null)">
+        <mat-icon class="material-icons-outlined" [class.selected-navbar-item]="this.router.url.startsWith('/profile')">person</mat-icon>
       </button>
       <button mat-icon-button color="white" (click)="goToRoute('orders', null)">
         <mat-icon class="material-icons-outlined" [class.selected-navbar-item]="this.router.url.startsWith('/orders')">description</mat-icon>
@@ -19,7 +19,7 @@
       </button>
 
       <div class="divider"></div>
-      <button mat-icon-button color="white">
+      <button mat-icon-button color="white" (click)="logout()">
         <mat-icon class="material-icons-outlined">logout</mat-icon>
       </button>
     </div>
