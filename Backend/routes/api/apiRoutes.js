@@ -12,6 +12,7 @@ const {
 // Controllers
 const {
   postLogin,
+  postLogout,
   getAllUsers,
   postCreateUser,
   getUser,
@@ -22,6 +23,7 @@ const {
 } = require('../../controllers/api');
 
 router.post('/login/', postLogin);
+router.post('/logout/', postLogout);
 
 router.post(
   '/users/',

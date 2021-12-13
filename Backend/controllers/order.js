@@ -104,6 +104,6 @@ module.exports.getOrdersCSV = async (req, res) => {
       'attachment; filename=export.csv'
     );
 
-    res.status(200).end(csv);
+    res.status(200).end(JSON.stringify(csv));
   });
 };
