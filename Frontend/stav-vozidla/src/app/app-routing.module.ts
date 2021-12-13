@@ -5,10 +5,12 @@ import {OrdersTableComponent} from "./orders-table/orders-table.component";
 import {UsersTableComponent} from "./users-table/users-table.component";
 import {AddUserComponent} from "./add-user/add-user.component";
 import {UserGuard} from "./guards/user-guard.service";
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
   {path: '', component: OrdersTableComponent, canActivate: [UserGuard]},
   {path: 'authentication', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent},
   {path: 'orders', component: OrdersTableComponent},
   {path: 'order', component: AddUserComponent},
   {path: 'users', component: UsersTableComponent},

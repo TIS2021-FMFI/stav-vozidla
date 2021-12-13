@@ -11,7 +11,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   addNewUser(name: string, email: string, password: string, isAdmin: boolean, idGefco: string){
-    return this.http.post(environment.appUrl + '/api/users', {
+    return this.http.post(environment.apiUrl + '/api/users', {
       name: name,
       email:email,
       password: password,
@@ -25,7 +25,7 @@ export class UserService {
   }
 
   getUsers(){
-    return this.http.get<User[]>(environment.appUrl + '/api/users', {
+    return this.http.get<User[]>(environment.apiUrl + '/api/users', {
       withCredentials: true,
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
     })
