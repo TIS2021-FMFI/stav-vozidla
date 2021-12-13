@@ -66,4 +66,8 @@ export class OrdersTableComponent implements AfterViewInit {
   test() {
     console.log("test")
   }
+
+  export() {
+    this.ordersService.export()
+  }
 }

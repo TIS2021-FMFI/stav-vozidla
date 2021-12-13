@@ -21,9 +21,10 @@ import { OrderComponent } from './order/order.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { UsersTableComponent } from './users-table/users-table.component';
 import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
-import { AddUserComponent } from './add-user-dialog/add-user.component';
+import { AddUserComponent } from './add-user/add-user.component';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {MatSelectModule} from "@angular/material/select";
     UsersTableComponent,
     UserEditDialogComponent,
     AddUserComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

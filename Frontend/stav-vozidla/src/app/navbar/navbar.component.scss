@@ -1,9 +1,12 @@
 @import "src/palette";
 
 section{
-
   background-color: $color-primary;
 
+
+  .selected-navbar-item{
+    color: $color-accent;
+  }
   .navbar {
     max-width: 1600px;
     margin-left: auto;
@@ -64,5 +67,4 @@ section{
   .mat-white {
     color: #fff;
   }
-
 }

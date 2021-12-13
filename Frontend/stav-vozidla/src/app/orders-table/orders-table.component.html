@@ -1,3 +1,5 @@
+<app-navbar></app-navbar>
+
 <section>
   <mat-form-field class="input-filter" color="accent">
     <mat-label style="margin-left: 8px">Vyhľadávanie</mat-label>
@@ -81,7 +83,7 @@
 
 
   <div class="table-settings">
-    <button mat-flat-button color="primary">
+    <button mat-flat-button color="primary" (click)="export()">
       <mat-icon>download</mat-icon>
       Download file</button>
     <mat-paginator [pageSizeOptions]="[20, 50, 100]"

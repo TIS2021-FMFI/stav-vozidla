@@ -2,12 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from "./login/login.component";
 import {OrdersTableComponent} from "./orders-table/orders-table.component";
-import {OrderComponent} from "./order/order.component";
 import {UsersTableComponent} from "./users-table/users-table.component";
-import {AddUserComponent} from "./add-user-dialog/add-user.component";
+import {AddUserComponent} from "./add-user/add-user.component";
+import {UserGuard} from "./guards/user-guard.service";
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: '', component: OrdersTableComponent, canActivate: [UserGuard]},
+  {path: 'authentication', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent},
   {path: 'orders', component: OrdersTableComponent},
   {path: 'order', component: AddUserComponent},
   {path: 'users', component: UsersTableComponent},
