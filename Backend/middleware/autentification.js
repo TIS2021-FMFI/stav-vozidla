@@ -27,7 +27,6 @@ function authenticateToken(req, res, next) {
   jwt.verify(token, JWT_SECRET, async (err, user) => {
     //verifikujeme podla nasho tajneho kodu
     if (err) return res.sendStatus(403);
-    console.log('SSS', user);
     await db.user
       .findOne({
         where: { idUsers: user.user.idUsers },
@@ -46,6 +45,10 @@ function authenticateToken(req, res, next) {
           });
         }
         req.user = { user: dbUser.dataValues };
+      })
+      .catch((error) => {
+        console.log(error);
+        next(error);
       });
     next();
   });
