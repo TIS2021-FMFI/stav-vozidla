@@ -1,5 +1,5 @@
 export interface Service{
-  name: string
-  state: number
-  dateOfCompletion: Date
+  serviceName: string
+  statusCode: string
+  completionDate: Date
 }

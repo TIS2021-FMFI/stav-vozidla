@@ -39,18 +39,10 @@
     <ng-container matColumnDef="activate">
       <mat-header-cell *matHeaderCellDef  class="activate"></mat-header-cell>
       <mat-cell *matCellDef="let element" class="activate">
-        <button mat-flat-button color="primary">Aktivovať</button>
+        <button mat-flat-button color="primary" [disabled]="authenticationService.user.id == element.id" (click)="deleteUser(element)">Vymazať užívateľa</button>
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef  class="edit"></mat-header-cell>
-      <mat-cell *matCellDef="let element" class="edit">
-        <button mat-icon-button>
-          <mat-icon>edit</mat-icon>
-        </button>
-      </mat-cell>
-    </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
@@ -58,7 +50,6 @@
 
 
   <div class="table-settings">
-    <div></div>
     <mat-paginator [pageSizeOptions]="[20, 50, 100]"
                    showFirstLastButtons
                    class="pagination">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Service} from "../service";
 
 @Component({
@@ -8,34 +8,31 @@ import {Service} from "../service";
 })
 export class TimelineComponent implements OnInit {
 
-  services: Service[] = [
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-    {name: "test", dateOfCompletion: new Date(), state: 1},
-  ]
+  @Input("services") services: Service[];
+  // services: Service[] = [
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  //   {name: "test", dateOfCompletion: new Date(), state: 1},
+  // ]
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.services)
   }
-
-  getServicesOfOrder(){
-
-  }
-
 
 }

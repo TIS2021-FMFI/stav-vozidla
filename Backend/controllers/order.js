@@ -18,7 +18,7 @@ module.exports.getOrder = (req, res) => {
           .status(400)
           .send(`Order with id ${req.params.id} not found`);
 
-      updates = await order.getUpdates({
+      services = await order.getUpdates({
         attributes: [
           'serviceName',
           'completionDate',
@@ -33,7 +33,13 @@ module.exports.getOrder = (req, res) => {
           ['completionDate', 'ASC'],
         ],
       });
-      res.status(201).send({ ...order.dataValues, updates });
+      orderRes = {
+        orderId: order.dataValues.id,
+        vin: order.dataValues.VIN,
+        vehicleName: order.dataValues.vehicleName,
+        dateOfCreation: order.dataValues.entryDate,
+      }
+      res.status(201).send({ ...orderRes, services });
     })
     .catch((error) => {
       console.log(error);
@@ -66,44 +72,44 @@ module.exports.getOrders = async (req, res) => {
 };
 
 module.exports.getOrdersCSV = async (req, res) => {
-  const idCheck = req.user.user.admin
-    ? {}
-    : { idGefco: req.user.user.idGefco };
+    const idCheck = req.user.user.admin
+        ? {}
+        : { idGefco: req.user.user.idGefco };
 
-  db.Update.findAll({
-    attributes: [
-      'statusCode',
-      'serviceName',
-      'completionDate',
-      'Order.VIN',
-      'Order.vehicleName',
-      'Order.entryDate',
-      'Order.idGefco',
-    ],
-    include: {
-      model: db.Order,
-      attributes: [],
-      where: req.body.idArray
-        ? {
-            id: req.body.idArray,
-          }
-        : {},
-    },
-    where: { ...idCheck },
-    raw: true,
-  }).then((data) => {
-    const jsonUsers = JSON.parse(JSON.stringify(data));
-    const json2csvParser = new Parser();
+    db.Update.findAll({
+        attributes: [
+            'statusCode',
+            'serviceName',
+            'completionDate',
+            'Order.VIN',
+            'Order.vehicleName',
+            'Order.entryDate',
+            'Order.idGefco',
+        ],
+        include: {
+            model: db.Order,
+            attributes: [],
+            where: req.body.idArray
+                ? {
+                    id: req.body.idArray,
+                    ...idCheck,
+                }
+                : { ...idCheck },
+        },
+        raw: true,
+    }).then((data) => {
+        const jsonUsers = JSON.parse(JSON.stringify(data));
+        const json2csvParser = new Parser();
 
-    // -> Convert JSON to CSV data
-    const csv = json2csvParser.parse(jsonUsers);
+        // -> Convert JSON to CSV data
+        const csv = json2csvParser.parse(jsonUsers);
 
-    res.setHeader('Content-Type', 'text/csv');
-    res.setHeader(
-      'Content-Disposition',
-      'attachment; filename=export.csv'
-    );
+        res.setHeader('Content-Type', 'text/csv');
+        res.setHeader(
+            'Content-Disposition',
+            'attachment; filename=export.csv'
+        );
 
-    res.status(200).end(JSON.stringify(csv));
-  });
+        res.status(200).end(JSON.stringify(csv));
+    });
 };

@@ -1,19 +1,24 @@
 section {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  row-gap: 46px;
+  margin-top: 64px;
+  margin-bottom: 32px;
   width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
 
   .service-container {
     display: flex;
     align-items: center;
+    justify-content: center;
+    height: 200px;
+
+    text-align: center;
 
     .service-name{
       margin-bottom: 24px;
-
+      height: 70px;
     }
     mat-icon {
-      color: green;
       transform: scale(2);
     }
 
@@ -23,6 +28,11 @@ section {
     }
 
     .service {
+      padding: 32px;
+      border: 1px solid black;
+      border-radius: 6px;
+
+      width: 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -30,11 +40,4 @@ section {
   }
 }
 
-.service-container:not(:last-child) {
-  .divider {
-    width: 64px;
-    height: 2px;
-    background-color: rgba(0, 0, 0, 0.12);
-  }
-}
 

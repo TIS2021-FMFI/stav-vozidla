@@ -41,7 +41,7 @@ module.exports.postCreateUser = async (req, res) => {
   if (
     !req.body.email ||
     !req.body.password ||
-    req.body.admin == undefined
+    req.body.admin === undefined
   ) {
     res.status(400).send({
       status: false,
@@ -52,7 +52,7 @@ module.exports.postCreateUser = async (req, res) => {
       .create({
         email: req.body.email,
         password: req.body.password,
-        isAdmin: req.body.admin,
+        admin: req.body.admin,
         idGefco: req.body.idGefco,
         name: req.body.name,
       })

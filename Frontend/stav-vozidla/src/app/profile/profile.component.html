@@ -1,3 +1,47 @@
 <app-navbar></app-navbar>
 
-<p>profile works!</p>
+
+<section>
+  <div class="profile-details">
+    <div class="details">
+      <div class="detail">
+        <mat-icon>account_circle</mat-icon>
+        <div class="text">
+          <span class="placeholder">Meno</span>
+          <span class="value">{{authenticationService.user.name}}</span>
+        </div>
+      </div>
+      <div class="detail">
+        <mat-icon>email</mat-icon>
+        <div class="text">
+          <span class="placeholder">Email</span>
+          <span class="value">{{authenticationService.user.email}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="password-change">
+    <div class="input">
+      <h1 style="text-align: center">Zmena hesla</h1>
+      <mat-form-field appearance="outline">
+        <mat-label>Staré heslo</mat-label>
+        <input matInput type="password" [(ngModel)]="oldPassword">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Nové heslo</mat-label>
+        <input matInput type="password" [(ngModel)]="newPassword">
+      </mat-form-field>
+      <div style="display: flex; justify-content: space-between">
+        <button mat-flat-button color="accent" style="color: white; width: 100%" (click)="changePassword()">Zmeniť heslo
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+
+</section>
+

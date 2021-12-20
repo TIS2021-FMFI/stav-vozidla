@@ -8,6 +8,8 @@ import {User} from "./user";
   providedIn: 'root'
 })
 export class UserService {
+  userToDelete: User
+
   constructor(private http: HttpClient) { }
 
   addNewUser(name: string, email: string, password: string, isAdmin: boolean, idGefco: string){
@@ -26,6 +28,13 @@ export class UserService {
 
   getUsers(){
     return this.http.get<User[]>(environment.apiUrl + '/api/users', {
+      withCredentials: true,
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+    })
+  }
+
+  deleteUser(userId: number){
+    return this.http.delete(environment.apiUrl + '/api/users/' + userId,{
       withCredentials: true,
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
     })

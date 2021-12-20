@@ -1,0 +1,65 @@
+section {
+  margin-top: 128px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  width: 1000px;
+
+  .profile-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+
+    .details {
+      .detail {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 24px;
+
+
+        .text {
+          display: flex;
+          flex-direction: column
+        }
+
+        mat-icon {
+          transform: scale(1.5);
+          margin-right: 24px;
+        }
+
+        .placeholder {
+          color: #000000AA;
+        }
+
+        .value {
+          font-weight: bold;
+          color: black;
+          font-size: 24px;
+        }
+      }
+    }
+  }
+
+  .divider {
+    width: 1px;
+    height: auto;
+    background-color: #000000AA
+  }
+
+  .password-change {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+
+    .input {
+      display: flex;
+      flex-direction: column;
+      width: 400px;
+    }
+  }
+}
