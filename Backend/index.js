@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // routes
-app.use('/', router);
+app.use('/api', router);
 
 //frontend
 app.use(express.static('stav-vozidla'));

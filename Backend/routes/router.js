@@ -5,8 +5,11 @@ const router = express.Router();
 // Routes
 const apiRoutes = require('./api/apiRoutes');
 const orderRoutes = require('./api/orderRoutes');
+const { E404, errorHandler } = require('../controllers/errorHandler');
 
-router.use('/api', apiRoutes);
-router.use('/api/order', orderRoutes);
+router.use('/', apiRoutes);
+router.use('/order', orderRoutes);
+router.use(E404);
+router.use(errorHandler);
 
 module.exports = router;
