@@ -16,7 +16,7 @@
         </mat-checkbox>
 
       </mat-header-cell>
-      <mat-cell *matCellDef="let row, let i = index" class="select">
+      <mat-cell *matCellDef="let row, let i = index" class="select" (click)="$event.stopPropagation()">
         <mat-checkbox (change)="$event ? selection.toggle(row) : null"
                       [checked]="selection.isSelected(row)" class="select-checkbox">
         </mat-checkbox>
@@ -78,14 +78,14 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="test()"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="goToOrder(row.id)" style="cursor: pointer"></mat-row>
   </mat-table>
 
 
   <div class="table-settings">
     <button mat-flat-button color="primary" (click)="export()">
       <mat-icon>download</mat-icon>
-      Download file</button>
+      Export objednávok ({{this.selection.selected.length}})</button>
     <mat-paginator [pageSizeOptions]="[20, 50, 100]"
                    showFirstLastButtons
                    class="pagination">

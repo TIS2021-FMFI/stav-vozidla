@@ -30,22 +30,18 @@ section {
   }
 
   .isAdmin {
-    flex: 0 0 10%;
+    flex: 0 0 20%;
   }
 
   .activate{
-    flex: 0 0 15%;
+    flex: 0 0 20%;
 
   }
 
-  .edit{
-    flex: 0 0 4%;
-
-  }
 
   .table-settings {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 16px;
 

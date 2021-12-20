@@ -16,7 +16,7 @@ const {
   getOrdersCSV,
 } = require('../../controllers/order');
 
-router.get('/export', authenticateToken, authUser, getOrdersCSV);
+router.post('/export', authenticateToken, authUser, getOrdersCSV);
 router.get('/:id/', authenticateToken, authUser, getOrder);
 router.get('/', authenticateToken, authUser, getOrders);
 

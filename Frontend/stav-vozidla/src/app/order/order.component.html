@@ -1,7 +1,14 @@
 <app-navbar></app-navbar>
 
 <section>
+
   <div class="header">
+    <div class="space">
+      <button mat-icon-button >
+        <mat-icon class="material-icons-outlined" (click)="goToOrders()">arrow_back</mat-icon>
+      </button>
+    </div>
+
     <span class="vin">VIN</span>
     <span class="date-creation">Dátum prijatia vozidla</span>
     <span class="date-update">Dátum poslednej zmeny</span>
@@ -11,7 +18,8 @@
     <span class="state">Stav</span>
   </div>
   <div class="header-divider"></div>
-  <div class="values">
+  <div class="values" *ngIf="order">
+    <div class="space"></div>
     <span class="vin">{{order.vin}}</span>
     <span class="date-creation">{{order.dateOfCreation | date:'d.M.y'  }}</span>
     <span class="date-update">{{order.dateOfUpdate | date:'d.M.y'  }}</span>
@@ -28,8 +36,7 @@
     </div>
   </div>
   <div>
-    <app-timeline></app-timeline>
-
+    <app-timeline [services]="order.services" *ngIf="order"></app-timeline>
   </div>
 
 </section>

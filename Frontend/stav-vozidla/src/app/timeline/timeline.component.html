@@ -1,13 +1,10 @@
-<app-navbar></app-navbar>
-
 <section>
   <div class="service-container" *ngFor="let service of services">
-    <div class="service">
-      <span class="service-name">{{service.name}}</span>
-      <mat-icon>done</mat-icon>
-      <span class="service-date">{{service.dateOfCompletion}}</span>
+    <div class="service" [style.background-color]="service.statusCode == '500' ? '#00800033' : 'white'">
+      <span class="service-name">{{service.serviceName}}</span>
+      <mat-icon [style.color]="service.statusCode == '500' ? 'green' : 'grey'">done</mat-icon>
+      <span *ngIf="service.completionDate" class="service-date">{{service.completionDate | date:'d/M/y'  }}</span>
+      <span *ngIf="!service.completionDate" class="service-date">NAPLÁNOVÉ</span>
     </div>
-    <div class="divider"></div>
   </div>
-
 </section>

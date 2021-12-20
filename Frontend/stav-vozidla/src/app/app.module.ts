@@ -19,12 +19,13 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { OrderComponent } from './order/order.component';
 import { TimelineComponent } from './timeline/timeline.component';
-import { UsersTableComponent } from './users-table/users-table.component';
-import { UserEditDialogComponent } from './user-edit-dialog/user-edit-dialog.component';
-import { AddUserComponent } from './add-user/add-user.component';
+import { UsersTableComponent } from './admin/users-table/users-table.component';
+import { AddUserComponent } from './admin/add-user/add-user.component';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
 import { ProfileComponent } from './profile/profile.component';
+import { EditUserComponent } from './admin/edit-user/edit-user.component';
+import { UserDeleteConfirmationComponent } from './admin/user-delete-confirmation/user-delete-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -35,9 +36,10 @@ import { ProfileComponent } from './profile/profile.component';
     OrderComponent,
     TimelineComponent,
     UsersTableComponent,
-    UserEditDialogComponent,
     AddUserComponent,
     ProfileComponent,
+    EditUserComponent,
+    UserDeleteConfirmationComponent,
   ],
   imports: [
     BrowserModule,

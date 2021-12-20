@@ -5,6 +5,7 @@ import {MatSort} from "@angular/material/sort";
 import {SelectionModel} from "@angular/cdk/collections";
 import {MatPaginator} from "@angular/material/paginator";
 import {OrdersService} from "../orders.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-orders-table',
@@ -32,7 +33,7 @@ export class OrdersTableComponent implements AfterViewInit {
   displayedColumns = ['select','vin', 'dateOfCreation', 'dateOfUpdate', 'vehicleName','finishedServices','unfinishedServices','finished'];
   selection = new SelectionModel<Order>(true, []);
 
-  constructor(private ordersService: OrdersService) {
+  constructor(private ordersService: OrdersService, private router: Router) {
 
 
   }
@@ -63,11 +64,11 @@ export class OrdersTableComponent implements AfterViewInit {
     this.dataSource.filter = filterInput.value.trim().toLowerCase();
   }
 
-  test() {
-    console.log("test")
+  goToOrder(id :any) {
+    this.router.navigate(['/order'], {queryParams : {id:id}})
   }
 
   export() {
-    this.ordersService.export()
+    this.ordersService.export(this.selection.selected)
   }
 }

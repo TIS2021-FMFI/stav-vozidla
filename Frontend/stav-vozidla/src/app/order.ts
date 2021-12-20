@@ -1,7 +1,7 @@
 import {Service} from "./service";
 
 export interface Order{
-  orderId: number
+  id: number
   vin: string
   dateOfCreation: Date
   dateOfUpdate: Date

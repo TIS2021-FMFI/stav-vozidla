@@ -70,13 +70,13 @@ Content-Type: application/json
     "newPassword":"admin123"
 }
 ### get order with id 
-GET  http://localhost:8085/api/order/1
+POST  http://localhost:8085/api/order/1
 Content-Type: application/json
 
 {
 }
 ### export selected
-GET  http://localhost:8085/api/order/export
+POST http://localhost:8085/api/order/export
 Content-Type: application/json
 
 {
