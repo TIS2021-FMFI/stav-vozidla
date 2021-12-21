@@ -5,9 +5,9 @@ const Sequelize = require('sequelize');
 module.exports.importData = (csvData) => {
   csvData.forEach(async (csvrow) => {
     if (csvrow[0] != 'Final Consignee Code') {
-      var completionDate =
-        csvrow[6] == '' ? null : moment.utc(csvrow[6], 'DD.MM.YYYY HH:mm');
-      var entryDate = moment.utc(csvrow[4], 'DD.MM.YYYY HH:mm');
+      var completionDate = csvrow[6] == '' ? null : moment.utc(csvrow[6]);
+      //console.log(csvrow[4], moment.utc(csvrow[4]));
+      var entryDate = moment.utc(csvrow[4]);
       await db.Order.findOrCreate({
         where: { VIN: csvrow[3], entryDate: entryDate },
         // if not found :
@@ -17,14 +17,18 @@ module.exports.importData = (csvData) => {
         },
         //isolationLevel:
         //Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
-      }).then((Order) => {
-        db.Update.create({
-          statusCode: csvrow[7],
-          serviceName: csvrow[5],
-          OrderId: Order[0].dataValues.id,
-          completionDate: completionDate,
+      })
+        .then((Order) => {
+          db.Update.create({
+            statusCode: csvrow[7],
+            serviceName: csvrow[5],
+            OrderId: Order[0].dataValues.id,
+            completionDate: completionDate,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      });
     }
   });
 };

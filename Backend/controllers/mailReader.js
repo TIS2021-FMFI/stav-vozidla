@@ -90,7 +90,7 @@ imap.once('ready', function () {
       where: { id: 1 },
       // in the event that it is not found
       defaults: {
-        lastEmailUID: 10,
+        lastEmailUID: 15,
       },
       isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
     });
