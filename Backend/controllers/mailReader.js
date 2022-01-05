@@ -8,10 +8,13 @@ var maxUID = 0;
 const Sequelize = require('sequelize');
 const db = require('../models');
 const dataImporter = require('../controllers/dataImporter');
+//config variables
+const { EMAIL_NAME, EMAIL_PASSWORD } = require(__dirname +
+  '/../config/config.json');
 
 var imap = new Imap({
-  user: 'stav.vozidla@gmail.com',
-  password: 'Stavvozidla123',
+  user: EMAIL_NAME,
+  password: EMAIL_PASSWORD,
   host: 'imap.gmail.com',
   port: 993,
   tls: true,
@@ -107,7 +110,6 @@ imap.once('ready', function () {
       console.log('Message #%d', seqno);
       msg.on('attributes', function (attrs) {
         maxUID = attrs.uid;
-        console.log('ssss' + attrs.uid);
       });
       var prefix = '(#' + seqno + ') ';
       msg.on('body', function (stream, info) {

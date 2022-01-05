@@ -4,7 +4,7 @@ POST http://localhost:8085/api/login
 Content-Type: application/json
 
 {
-    "email":"admin@admin.sk",
+    "email":"Admin@admin.sk",
     "password":"admin123"
 }
 ### get all users (only admin)
@@ -24,7 +24,7 @@ POST http://localhost:8085/api/users
 Content-Type: application/json
 
 {
-    "email":"testUser1234@testUser.sk",
+    "email":"adagon001@gmail.com",
     "password":"User1234",
     "idGefco": "048751481.649",
     "admin": false,
@@ -52,8 +52,9 @@ POST http://localhost:8085/api/login
 Content-Type: application/json
 
 {
-    "email":"testUser1234@testUser.sk",
-    "password":"User1234"
+    "email":"adagon001@gmail.com",
+
+    "password":"Adamko"
 }
 ### get logged user not admin
 GET http://localhost:8085/api/users/logged-user
@@ -94,4 +95,17 @@ Content-Type: application/json
 
 {
 }
+### reset forgotten password 
+POST  http://localhost:8085/api/password-reset
+Content-Type: application/json
 
+{
+    "email":"adagon001@gmail.com"
+}
+### reset forgotten password 
+POST  http://localhost:8085/api/password-reset/22/ad505cd0827031de8023f7d9fe9c9ad9f50785ed1cc742c0698a466b08738015
+Content-Type: application/json
+
+{
+    "password":"Adamko"
+}

@@ -17,7 +17,10 @@ Studentsky projekt TIS 2021
     "database": "yourDBname",
     "host": "yourDBhost(127.0.0.1)",
     "dialect": "yourDBdialect"
-   }
+   },
+   "APP_URL": "http://domainOfApp",
+    "EMAIL_NAME": "emailNameForImportAndExport",
+    "EMAIL_PASSWORD": "emailPasswordForImportAndExport"
    }
    ```
 3. Run project

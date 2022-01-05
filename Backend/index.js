@@ -14,8 +14,10 @@ const corsOptions = {
   credentials: true,
   optionSuccessStatus: 200,
 };
-const job = schedule.scheduleJob('40 * * * *', function () {
-  console.log('Import of data');
+
+//scheduled import every hour
+const job = schedule.scheduleJob('10 * * * *', function () {
+  mailReader.connect();
 });
 
 //middlaware

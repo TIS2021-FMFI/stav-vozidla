@@ -6,9 +6,14 @@ module.exports.E404 = (req, res, next) => {
 
 module.exports.errorHandler = (error, req, res, next) => {
   res.status(error.status || 500);
+  console.log(error);
+  let more = '';
+  if (error.errors) {
+    more = error.errors[0].message;
+  }
   res.json({
     error: {
-      message: error.message,
+      message: `${error.name} ${more}`,
     },
   });
 };

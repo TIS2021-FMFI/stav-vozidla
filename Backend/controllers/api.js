@@ -4,10 +4,10 @@ const jwt = require('jsonwebtoken');
 // Database models
 const db = require('../models');
 const axios = require('axios');
-
-const JWT_SECRET = require(__dirname + '/../config/config.json')[
-  'JWT_SECRET'
-];
+const crypto = require('crypto');
+const sendEmail = require('./sendEmail');
+const { APP_URL, JWT_SECRET } = require(__dirname +
+  '/../config/config.json');
 
 module.exports.postLogin = async (req, res, next) => {
   //hladame usera podla parametrov z tela http requestu
@@ -17,7 +17,6 @@ module.exports.postLogin = async (req, res, next) => {
     })
     .then(async (user) => {
       if (user == null || !(await user.validPassword(req.body.password))) {
-        console.log(await user.validPassword(req.body.password));
         return res.status(401).send('Invalid Credentials');
       }
       const token = jwt.sign({ user }, JWT_SECRET);
@@ -52,6 +51,7 @@ module.exports.postCreateUser = async (req, res, next) => {
       message: 'No email or password or isAdmin',
     });
   } else {
+    const token = crypto.randomBytes(32).toString('hex');
     db.user
       .create({
         email: req.body.email,
@@ -59,16 +59,20 @@ module.exports.postCreateUser = async (req, res, next) => {
         admin: req.body.admin,
         idGefco: req.body.idGefco,
         name: req.body.name,
+        resetToken: token,
       })
-      .then((user) =>
+      .then(async (user) => {
+        const link = `${APP_URL}/api/password-reset/${user.idUsers}/${token}`;
+        const massage = `You can set up new password on following link: ${link}`;
+        await sendEmail(user.email, 'Password setup', massage);
         res.status(201).send({
           id: user.idUsers,
           idGefco: user.idGefco,
           name: user.name,
           email: user.email,
           isAdmin: user.admin,
-        })
-      )
+        });
+      })
       .catch((error) => {
         console.log(error);
         next(error);
