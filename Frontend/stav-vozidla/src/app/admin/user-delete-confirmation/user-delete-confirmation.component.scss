@@ -1,0 +1,15 @@
+section{
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 64px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  button{
+    margin: 8px;
+  }
+}

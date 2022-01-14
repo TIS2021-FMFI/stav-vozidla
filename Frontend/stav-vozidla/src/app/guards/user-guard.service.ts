@@ -10,7 +10,6 @@ import {catchError, map, tap} from "rxjs/operators";
 export class UserGuard implements CanActivate {
 
   constructor(public authenticationService: AuthenticationService, public router: Router) {
-
   }
 
   canActivate(

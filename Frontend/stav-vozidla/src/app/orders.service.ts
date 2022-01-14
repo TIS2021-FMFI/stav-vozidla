@@ -16,7 +16,8 @@ export class OrdersService {
     return this.http.get<Order[]>(environment.apiUrl + '/api/order', {
       withCredentials: true,
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
-    }).pipe(map(response => response.sort((a, b) => new Date(b.dateOfCreation).getTime() - new Date(a.dateOfCreation).getTime())))
+    })
+      .pipe(map(response => response.sort((a, b) => new Date(b.dateOfCreation).getTime() - new Date(a.dateOfCreation).getTime())))
   }
 
   getOrder(orderId: any) {
@@ -34,12 +35,11 @@ export class OrdersService {
       withCredentials: true,
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
     }).subscribe(response => {
-      console.log(response)
-      this.downLoadFile(response, 'text/csv')
+      this.downloadFile(response, 'text/csv')
     })
   }
 
-  downLoadFile(data: any, type: string) {
+  downloadFile(data: any, type: string) {
     let blob = new Blob([data], {type: type});
     let url = window.URL.createObjectURL(blob);
     let pwa = window.open(url);

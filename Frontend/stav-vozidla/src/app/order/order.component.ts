@@ -9,18 +9,7 @@ import {Order} from "../order";
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements AfterViewInit {
-
-
   order: Order
-  // order = {
-  //   orderId: 10,
-  //   vin: "20",
-  //   dateOfCreation: new Date(),
-  //   dateOfUpdate: new Date(),
-  //   vehicleName: "skoda",
-  //   finishedServices: 0,
-  //   unfinishedServices: 1,
-  // }
 
   constructor(private ordersService: OrdersService, private route: ActivatedRoute,public router: Router) {
     this.route.queryParams.subscribe(params => {

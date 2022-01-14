@@ -44,6 +44,5 @@ export class UsersTableComponent implements AfterViewInit {
   deleteUser(user: User) {
     this.userService.userToDelete = user;
     this.router.navigate(['delete-confirmation'])
-
   }
 }

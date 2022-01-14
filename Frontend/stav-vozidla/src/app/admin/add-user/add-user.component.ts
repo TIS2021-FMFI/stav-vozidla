@@ -15,7 +15,6 @@ export class AddUserComponent implements OnInit {
   isAdmin: boolean = false;
 
   constructor(private userService: UserService, private router:Router) {
-
   }
 
   ngOnInit(): void {
