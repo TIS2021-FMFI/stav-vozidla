@@ -57,7 +57,7 @@ Content-Type: application/json
     "password":"Adamko"
 }
 ### get logged user not admin
-GET http://localhost:8085/api/users/logged-user
+GET http://localhost:8085/api/userss/logged-user
 Content-Type: application/json
 
 {

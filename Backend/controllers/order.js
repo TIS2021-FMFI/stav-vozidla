@@ -21,7 +21,10 @@ module.exports.getOrder = (req, res, next) => {
       services = await order.getUpdates({
         attributes: [
           'serviceName',
-          'completionDate',
+          [
+            Sequelize.fn('max', Sequelize.col('completionDate')),
+            'completionDate',
+          ],
           [Sequelize.fn('max', Sequelize.col('statusCode')), 'statusCode'],
         ],
         group: ['serviceName'],

@@ -13,7 +13,7 @@ module.exports.errorHandler = (error, req, res, next) => {
   }
   res.json({
     error: {
-      message: `${error.name} ${more}`,
+      message: `${error.message} ${more}`,
     },
   });
 };
