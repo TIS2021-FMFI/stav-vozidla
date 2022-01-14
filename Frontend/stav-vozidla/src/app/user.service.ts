@@ -23,7 +23,6 @@ export class UserService {
       withCredentials: true,
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
     })
-
   }
 
   getUsers(){

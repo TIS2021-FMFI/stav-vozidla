@@ -39,7 +39,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.http.post<User>(environment.apiUrl + '/api/logout', {}, {
+    this.http.post(environment.apiUrl + '/api/logout', {}, {
       withCredentials: true,
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
     }).subscribe(() => window.location.href = environment.appUrl)

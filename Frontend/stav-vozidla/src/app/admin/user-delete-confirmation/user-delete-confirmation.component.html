@@ -1,0 +1,10 @@
+<app-navbar></app-navbar>
+
+<section>
+  <h1>Ste si istý, že chcete vymazať používateľa {{userService.userToDelete.name}} ({{userService.userToDelete.email}})?</h1>
+  <div>
+    <button mat-stroked-button (click)="rejectDelete()" color="primary">Zrušiť</button>
+    <button mat-flat-button (click)="confirmDelete(userService.userToDelete.id)" color="primary">Potvrdiť vymazanie užívateľa</button>
+  </div>
+
+</section>
