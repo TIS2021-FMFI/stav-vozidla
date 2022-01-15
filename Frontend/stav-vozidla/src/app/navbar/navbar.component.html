@@ -11,10 +11,10 @@
       <button mat-icon-button color="white" (click)="goToRoute('orders', null)">
         <mat-icon class="material-icons-outlined" [class.selected-navbar-item]="this.router.url.startsWith('/orders')">description</mat-icon>
       </button>
-      <button mat-icon-button color="white" (click)="goToRoute('users', null)" *ngIf="authenticationService.user.isAdmin">
+      <button mat-icon-button color="white" (click)="goToRoute('users', null)" *ngIf="(authenticationService.user | async).isAdmin">
         <mat-icon class="material-icons-outlined" [class.selected-navbar-item]="this.router.url.startsWith('/users')">people</mat-icon>
       </button>
-      <button mat-icon-button color="white" (click)="goToRoute('add-user', null)" *ngIf="authenticationService.user.isAdmin">
+      <button mat-icon-button color="white" (click)="goToRoute('add-user', null)" *ngIf="(authenticationService.user | async).isAdmin">
         <mat-icon class="material-icons-outlined" [class.selected-navbar-item]="this.router.url.startsWith('/add-user')">person_add_alt</mat-icon>
       </button>
 

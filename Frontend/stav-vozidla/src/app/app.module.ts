@@ -24,8 +24,9 @@ import { AddUserComponent } from './admin/add-user/add-user.component';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {MatSelectModule} from "@angular/material/select";
 import { ProfileComponent } from './profile/profile.component';
-import { EditUserComponent } from './admin/edit-user/edit-user.component';
 import { UserDeleteConfirmationComponent } from './admin/user-delete-confirmation/user-delete-confirmation.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -38,8 +39,8 @@ import { UserDeleteConfirmationComponent } from './admin/user-delete-confirmatio
     UsersTableComponent,
     AddUserComponent,
     ProfileComponent,
-    EditUserComponent,
     UserDeleteConfirmationComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +57,8 @@ import { UserDeleteConfirmationComponent } from './admin/user-delete-confirmatio
     MatSortModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

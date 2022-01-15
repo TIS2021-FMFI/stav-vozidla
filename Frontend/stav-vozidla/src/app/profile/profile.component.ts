@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "../user.service";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../authentication.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,7 @@ export class ProfileComponent implements OnInit {
   newPassword: string;
 
 
-  constructor(private userService: UserService, private router:Router, public authenticationService: AuthenticationService) {
+  constructor(private userService: UserService, private router:Router, public authenticationService: AuthenticationService, private snackBar: MatSnackBar) {
 
   }
 
@@ -21,7 +22,16 @@ export class ProfileComponent implements OnInit {
   }
 
   changePassword() {
-    // this.userService.addNewUser(this.name, this.email, "aaa",this.isAdmin, this.gefcoId)
-    //   .subscribe(response => (this.router.navigate(['/users'])));
+    this.userService.changePassword(this.oldPassword, this.newPassword).subscribe({
+      next: () => {
+        this.oldPassword = ''
+        this.newPassword = ''
+        this.snackBar.open("Heslo bolo úspešne zmenené.", null, {duration: 3000})
+      },
+      error: ()=> {
+        this.snackBar.open("Heslo sa nepodarilo zmeniť. Prosím uistite sa, že staré heslo je korektné.", null, {duration: 3000})
+
+      }
+    })
   }
 }

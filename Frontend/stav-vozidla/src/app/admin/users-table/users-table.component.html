@@ -39,7 +39,7 @@
     <ng-container matColumnDef="activate">
       <mat-header-cell *matHeaderCellDef  class="activate"></mat-header-cell>
       <mat-cell *matCellDef="let element" class="activate">
-        <button mat-flat-button color="primary" [disabled]="authenticationService.user.id == element.id" (click)="deleteUser(element)">Vymazať užívateľa</button>
+        <button mat-flat-button color="primary" [disabled]="(authenticationService.user | async).id == element.id" (click)="deleteUser(element)">Vymazať užívateľa</button>
       </mat-cell>
     </ng-container>
 
