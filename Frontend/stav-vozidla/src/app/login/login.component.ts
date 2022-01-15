@@ -5,6 +5,7 @@ import {PasswordResetComponent} from "../password-reset/password-reset.component
 import {PasswordResetService} from "../password-reset/password-reset.service";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authenticationService.loginUser(this.email,this.password).subscribe({
-      next: (user) => this.router.navigate(['/']),
+      next: (user) => window.location.href = environment.appUrl,
       error: (error: HttpErrorResponse) => this.snackBar.open("Zadané prihlasovacie údaje neprislúchajú žiadnému účtu.", null, {duration: 3000})
     })
   }
