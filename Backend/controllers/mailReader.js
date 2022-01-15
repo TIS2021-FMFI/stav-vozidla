@@ -179,7 +179,7 @@ imap.once('end', async function () {
   console.log('Connection ended');
   dataImporter.importData(csvData);
   await lastCheck[0].update({ lastEmailUID: maxUID });
-  console.log('Last fetched email UID set to ' + maxUID);
+  console.log('Last fetchd email UID set to ' + maxUID);
 });
 
 module.exports.connect = async () => {
