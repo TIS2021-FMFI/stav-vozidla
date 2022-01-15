@@ -1,5 +1,6 @@
 // 3rd party modules
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 // Database models
 const db = require('../models');
@@ -96,7 +97,7 @@ module.exports.postChangePassword = async (req, res, next) => {
     }
     return user
       .update({
-        password: req.body.newPassword,
+        password: await bcrypt.hash(req.body.newPassword, await bcrypt.genSalt(10)),
       })
       .then(function (user) {
         res.status(201).send({
@@ -120,11 +121,11 @@ module.exports.postUpdateUser = async (req, res, next) => {
       where: { idUsers: req.params.id },
     })
     .then(function (result) {
+
       if (!result) return res.status(400).send('User dont exist');
       return result
         .update({
           email: req.body.email,
-          password: req.body.password,
           isAdmin: req.body.admin,
           idGefco: req.body.idGefco,
           name: req.body.name,

@@ -8,14 +8,14 @@
         <mat-icon>account_circle</mat-icon>
         <div class="text">
           <span class="placeholder">Meno</span>
-          <span class="value">{{authenticationService.user.name}}</span>
+          <span class="value">{{(authenticationService.user | async).name}}</span>
         </div>
       </div>
       <div class="detail">
         <mat-icon>email</mat-icon>
         <div class="text">
           <span class="placeholder">Email</span>
-          <span class="value">{{authenticationService.user.email}}</span>
+          <span class="value">{{(authenticationService.user | async).email }}</span>
         </div>
       </div>
     </div>

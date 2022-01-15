@@ -38,4 +38,14 @@ export class UserService {
       headers: new HttpHeaders({'Content-Type': 'application/json'}),
     })
   }
+
+  changePassword(oldPassword: string, newPassword: string) {
+    return this.http.post(environment.apiUrl + '/api/users/change-password', {
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    }, {
+      withCredentials: true,
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+    })
+  }
 }

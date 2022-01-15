@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const sendEmail = require('./sendEmail');
 const crypto = require('crypto');
 const { APP_URL } = require(__dirname + '/../config/config.json');
+const bcrypt = require("bcrypt");
 
 module.exports.sendResetEmail = async (req, res, next) => {
   try {
@@ -18,10 +19,10 @@ module.exports.sendResetEmail = async (req, res, next) => {
       resetToken: token,
     });
 
-    const link = `${APP_URL}/api/password-reset/${user.idUsers}/${token}`;
+    const link = `${APP_URL}/password-reset?userId=${user.idUsers}&token=${token}`;
     const massage = `You can set up new password on following link: ${link}`;
     await sendEmail(user.email, 'Password reset', massage);
-    res.send('password reset link sent to your email account');
+    res.send();
   } catch (error) {
     console.log(error);
     next(error);
@@ -35,18 +36,18 @@ module.exports.setForgottenPassword = async (req, res, next) => {
     //if (error) return res.status(400).send(error.details[0].message);
 
     const user = await db.user.findOne({
-      where: { idUsers: req.params.userId },
+      where: { idUsers: req.params.userId, resetToken: req.params.token },
     });
     console.log(user);
     if (!user || user.resetToken == null)
       return res.status(400).send('invalid link or expired');
 
     await user.update({
-      password: req.body.password,
+      password: await bcrypt.hash(req.body.password, await bcrypt.genSalt(10)),
       resetToken: null,
     });
 
-    res.send('password reset sucessfully.');
+    res.send();
   } catch (error) {
     res.send('An error occured');
     next(error);
