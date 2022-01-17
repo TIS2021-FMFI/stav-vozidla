@@ -9,11 +9,12 @@ import {ProfileComponent} from "./profile/profile.component";
 import {OrderComponent} from "./order/order.component";
 import {UserDeleteConfirmationComponent} from "./admin/user-delete-confirmation/user-delete-confirmation.component";
 import {PasswordResetComponent} from "./password-reset/password-reset.component";
+import {GuestGuard} from "./guards/guest-guard.service";
 
 const routes: Routes = [
   {path: '', component: OrdersTableComponent, canActivate: [UserGuard]},
   {path: 'password-reset', component: PasswordResetComponent},
-  {path: 'authentication', component: LoginComponent},
+  {path: 'authentication', component: LoginComponent, canActivate: [GuestGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [UserGuard]},
   {path: 'orders', component: OrdersTableComponent, canActivate: [UserGuard]},
   {path: 'order', component: OrderComponent, canActivate: [UserGuard]},
