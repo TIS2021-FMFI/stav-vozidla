@@ -41,6 +41,10 @@ module.exports.getOrder = (req, res, next) => {
         vin: order.dataValues.VIN,
         vehicleName: order.dataValues.vehicleName,
         dateOfCreation: order.dataValues.entryDate,
+        dateOfUpdate: Math.max(
+          ...services.map((o) => o.completionDate),
+          order.dataValues.entryDate
+        ),
       };
       res.status(201).send({ ...orderRes, services });
     })

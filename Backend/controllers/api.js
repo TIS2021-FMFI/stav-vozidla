@@ -63,7 +63,7 @@ module.exports.postCreateUser = async (req, res, next) => {
         resetToken: token,
       })
       .then(async (user) => {
-        const link = `${APP_URL}/api/password-reset/${user.idUsers}/${token}`;
+        const link = `${APP_URL}/password-reset?userId=${user.idUsers}&token=${token}`;
         const massage = `You can set up new password on following link: ${link}`;
         await sendEmail(user.email, 'Password setup', massage);
         res.status(201).send({
@@ -97,7 +97,10 @@ module.exports.postChangePassword = async (req, res, next) => {
     }
     return user
       .update({
-        password: await bcrypt.hash(req.body.newPassword, await bcrypt.genSalt(10)),
+        password: await bcrypt.hash(
+          req.body.newPassword,
+          await bcrypt.genSalt(10)
+        ),
       })
       .then(function (user) {
         res.status(201).send({
@@ -121,7 +124,6 @@ module.exports.postUpdateUser = async (req, res, next) => {
       where: { idUsers: req.params.id },
     })
     .then(function (result) {
-
       if (!result) return res.status(400).send('User dont exist');
       return result
         .update({
