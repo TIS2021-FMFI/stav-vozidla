@@ -129,6 +129,9 @@ imap.once('ready', function () {
         console.log(prefix + 'Has attachments: %d', attachments.length);
         for (var i = 0, len = attachments.length; i < len; ++i) {
           var attachment = attachments[i];
+          if (attachment.params.name != 'SERVICE STATUS REPORT.csv') {
+            continue;
+          }
           /*This is how each attachment looks like {
               partID: '2',
               type: 'application',
