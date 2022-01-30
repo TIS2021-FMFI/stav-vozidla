@@ -18,7 +18,7 @@ module.exports.getOrder = (req, res, next) => {
           .status(400)
           .send(`Order with id ${req.params.id} not found`);
 
-      services = await order.getUpdates({
+      servicesRaw = await order.getUpdates({
         attributes: [
           'serviceName',
           [
@@ -28,13 +28,13 @@ module.exports.getOrder = (req, res, next) => {
           [Sequelize.fn('max', Sequelize.col('statusCode')), 'statusCode'],
         ],
         group: ['serviceName'],
-        where: {
-          [Sequelize.Op.or]: [{ statusCode: 400 }, { statusCode: 500 }],
-        },
         order: [
           Sequelize.fn('isnull', Sequelize.col('completionDate')),
           ['completionDate', 'ASC'],
         ],
+      });
+      const services = servicesRaw.filter((s) => {
+        return s.statusCode != 600;
       });
       orderRes = {
         orderId: order.dataValues.id,
@@ -64,7 +64,7 @@ module.exports.getOrders = async (req, res) => {
         ,sum(case MaxStatusCode when 400 then 1 else 0 end) unfinishedServices
         ,sum(case MaxStatusCode when 500 then 1 else 0 end) finishedServices
         ,sum(case MaxStatusCode when 600 then 1 else 0 end) removedServices
-        ,sum(case MaxStatusCode when 400 then 1 else 0 end) = 0 as finished
+        ,sum(case MaxStatusCode when 400 then 1 else 0 end) != 0 as finished
         ,CASE WHEN MAX(dateOfUpdate) IS NULL THEN entryDate ELSE MAX(dateOfUpdate) END as dateOfUpdate
       FROM Orders o
       JOIN
