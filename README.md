@@ -23,10 +23,10 @@ Studentsky projekt TIS 2021
     "EMAIL_PASSWORD": "emailPasswordForImportAndExport"
    }
    ```
-3. Run project
+3. Start project in production
 
 ```sh
-   npm run dev
+   pm2 start index.js
 ```
 
 3. Seed Admin
