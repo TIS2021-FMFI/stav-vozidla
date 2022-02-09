@@ -32,7 +32,7 @@ function authenticateToken(req, res, next) {
         where: { idUsers: user.user.idUsers },
       })
       .then(async (dbUser) => {
-        if (user == null) {
+        if (dbUser == null) {
           return res.status(401).send('Need to sign in');
         }
         if (

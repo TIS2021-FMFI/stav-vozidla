@@ -16,7 +16,8 @@ const corsOptions = {
 };
 
 //scheduled import every hour
-const job = schedule.scheduleJob('10 * * * *', function () {
+const job = schedule.scheduleJob('45 * * * *', function () {
+  console.log('import');
   mailReader.connect();
 });
 

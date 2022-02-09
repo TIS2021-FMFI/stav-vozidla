@@ -1,6 +1,6 @@
 
 ###login admina
-POST http://localhost:8085/api/login
+POST http://5.178.48.91:8085/api/login
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
     "password":"admin123"
 }
 ### get all users (only admin)
-GET  http://localhost:8085/api/users
+GET  http://5.178.48.91:8085/api/users
 Content-Type: application/json
 
 {
@@ -71,7 +71,7 @@ Content-Type: application/json
     "newPassword":"admin123"
 }
 ### get order with id 
-GET    http://localhost:8085/api/order/5
+GET    http://localhost:8085/api/order/6
 Content-Type: application/json
 
 {
@@ -90,7 +90,7 @@ Content-Type: application/json
 {
 }
 ### get all orders of logged user / all orders in system for admin
-GET  http://localhost:8085/api/order
+GET  http://5.178.48.91:8085/api/order
 Content-Type: application/json
 
 {

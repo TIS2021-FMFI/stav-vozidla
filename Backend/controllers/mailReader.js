@@ -17,10 +17,16 @@ var imap = new Imap({
   password: EMAIL_PASSWORD,
   host: 'imap.gmail.com',
   port: 993,
+  //connTimeout: 50000,
+  keepalive: false,
   tls: true,
   tlsOptions: { rejectUnauthorized: false },
-  //,debug: function(msg){console.log('imap:', msg);}
+  //debug: function (msg) {
+  //console.log('imap:', msg);
+  //},
 });
+
+//console.log(imap);
 
 function toUpper(thing) {
   return thing && thing.toUpperCase ? thing.toUpperCase() : thing;
@@ -93,13 +99,15 @@ imap.once('ready', function () {
       where: { id: 1 },
       // in the event that it is not found
       defaults: {
-        lastEmailUID: 15,
+        lastEmailUID: 71,
       },
       isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
     });
     const LastUID = lastCheck[0].dataValues.lastEmailUID;
     if (LastUID + 1 == box.uidnext) {
       console.log('No new messages');
+      maxUID = LastUID;
+      imap.end();
       return;
     }
     var f = imap.fetch(`${LastUID + 1}:*`, {
